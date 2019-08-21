@@ -1,8 +1,23 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html>
 <head>
 	<title></title>
+	<!-- bootstrap css -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- bootstrap css end./ -->
+	
+	<!-- fontawesome css -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- fontawesome css end./ -->
+
+	<!-- jquery ui css -->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<!-- jquery ui css./ -->
+
+	<!-- custom css -->
+	<link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+	<!-- custom css end./ -->
 </head>
 <body>
 	{% include 'navbar.html' %}
