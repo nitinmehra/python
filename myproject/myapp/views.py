@@ -13,3 +13,8 @@ def about_us(request):
 	template = loader.get_template('about_us.html')
 	context = {'latest_question_list': 'latest_question_list'}
 	return HttpResponse(template.render(context, request))
+
+def enrollment_page(request):
+	template = loader.get_template('enrollment-form.html')
+	context = {'latest_question_list': 'latest_question_list'}
+	return HttpResponse(template.render(context, request))
