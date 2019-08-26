@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
+import json
 
 # Create your views here.
 
@@ -18,3 +19,7 @@ def enrollment_page(request):
 	template = loader.get_template('enrollment-form.html')
 	context = {'latest_question_list': 'latest_question_list'}
 	return HttpResponse(template.render(context, request))
+
+def enrollment_from_submit(request):
+	response_data = {'code' : 1, 'status' : 'success', 'msg' : 'submitted'}
+	return HttpResponse(json.dumps(response_data), content_type="application/json")
