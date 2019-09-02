@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 import json
+from myapp.models import Users
 
 # Create your views here.
 
@@ -21,5 +22,8 @@ def enrollment_page(request):
 	return HttpResponse(template.render(context, request))
 
 def enrollment_from_submit(request):
-	response_data = {'code' : 1, 'status' : 'success', 'msg' : 'submitted'}
+	response_data = {'code' : 0, 'status' : 'fail', 'msg' : 'not submitted'}
+	if request.POST.get('formname') == 'create_user':
+		Users.create_user(request.POST)
+		response_data = {'code' : 1, 'status' : 'success', 'msg' : Users.create_user(request.POST)}
 	return HttpResponse(json.dumps(response_data), content_type="application/json")
