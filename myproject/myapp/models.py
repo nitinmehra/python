@@ -8,6 +8,3 @@ class Users(models.Model):
 	user_address = models.TextField()
 	user_privelage = models.TextField()
 	user_status = models.SmallIntegerField(default = 1)
-
-	def create_user(self, data):
-		return self.data

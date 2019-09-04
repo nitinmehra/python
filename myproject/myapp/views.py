@@ -24,6 +24,15 @@ def enrollment_page(request):
 def enrollment_from_submit(request):
 	response_data = {'code' : 0, 'status' : 'fail', 'msg' : 'not submitted'}
 	if request.POST.get('formname') == 'create_user':
-		Users.create_user(request.POST)
-		response_data = {'code' : 1, 'status' : 'success', 'msg' : Users.create_user(request.POST)}
+		create_user = Users(
+				user_name = request.POST['name'],
+				user_phone = request.POST['phone'],
+				user_email = request.POST['email']
+			)
+		response_data = {'code' : 1, 'status' : 'success', 'msg' : 'submitted successfuly'}
 	return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+def users_list(request):
+	#template = loader.get_template('users_list.html')
+	fetch_users = Users.objects.all()
+	#return HttpResponse(template.render(json.dumps({'users_data' : list(fetch_users)}), request))
