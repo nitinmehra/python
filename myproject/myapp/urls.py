@@ -8,4 +8,5 @@ urlpatterns = [
     path('enrollment-form', views.enrollment_page, name='enrollment_page'),
     path('enrollment_from_submit', views.enrollment_from_submit, name='enrollment_from_submit'),
     path('users_list', views.users_list, name='users_list'),
+    path('user_login', views.user_login, name='user_login'),
 ]

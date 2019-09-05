@@ -36,4 +36,10 @@ def enrollment_from_submit(request):
 def users_list(request):
 	template = loader.get_template('users_list.html')
 	fetch_users = Users.objects.all()
-	#return HttpResponse(template.render(json.dumps({'users_data' : list(fetch_users)}), request))
+	return HttpResponse(template.render({'users_list' : fetch_users}, request))
+	
+def user_login(request):
+	response_data = {'code' : 0, 'status' : 'fail', 'msg' : 'invalid credentials'}
+	if request.POST.get('formname') == 'user_login':
+		response_data = {'code' : 1, 'status' : 'success', 'msg' : 'Valid crednetials'}
+	return HttpResponse(json.dumps(response_data), content_type="application/json")
