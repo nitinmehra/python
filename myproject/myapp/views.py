@@ -29,10 +29,11 @@ def enrollment_from_submit(request):
 				user_phone = request.POST['phone'],
 				user_email = request.POST['email']
 			)
-		response_data = {'code' : 1, 'status' : 'success', 'msg' : 'submitted successfuly'}
+		create_user.save()
+		response_data = {'code' : 1, 'status' : 'success', 'msg' : 'User created successfuly'}
 	return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 def users_list(request):
-	#template = loader.get_template('users_list.html')
+	template = loader.get_template('users_list.html')
 	fetch_users = Users.objects.all()
 	#return HttpResponse(template.render(json.dumps({'users_data' : list(fetch_users)}), request))
