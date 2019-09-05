@@ -5,23 +5,79 @@
 			<h1>Enrollment Page</h1>			
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-sm-8">
+			<form action="" name="enrollment-form" id="enrollment-form" method="post">
+				{% csrf_token %}
+				<input type="hidden" name="formname" value="create_user">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="name">Name</label>
+							<input type="text" name="name" id="name" value="" class="form-control">
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="email">Email</label>
+							<input type="email" name="email" id="email" value="" class="form-control">
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="phone">Phone</label>
+							<input type="number" name="phone" id="phone" value="" class="form-control">
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="passowrd">Password</label>
+							<input type="password" name="passowrd" id="password" value="" class="form-control">
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="form-group">
+							<input type="button" name="submit_button" id="submit_button" value="submit" class="btn btn-success btn-sm">
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col-sm-4">
+			<form action="" name="login-form" id="login-form" method="">
+				{% csrf_token %}
+				<input type="hidden" name="formname" value="user_login">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label for="user_email">Email</label>
+							<input type="email" name="user_email" id="user_email" value="" class="form-control">
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label for="user_password">Password</label>
+							<input type="password" name="user_passowrd" id="user_password" value="" class="form-control">
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="form-group">
+							<input type="button" name="login" id="login" value="Login" class="btn btn-warning btn-sm">
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 
-<form action="" name="enrollment-form" id="enrollment-form" method="post">
-	{% csrf_token %}
-	Name : <input type="text" name="name" id="name">
-	Email : <input type="email" name="email" id="email">
-	Phone : <input type="number" name="phone" id="phone">
-	Password : <input type="password" name="passowrd" id="password">
-	<input type="hidden" name="formname" id="formname" value="create_user">
-	<input type="button" name="submit_button" id="submit_button" value="submit">
-</form>
 
 {% include 'footer.html' %}
 
 <script>
 	$(document).ready(function(event){
 		//event.preventDefault();
+		// enrollment form submit
 		$('#submit_button').on('click', function(){
 			var formdata = $("#enrollment-form").serialize();
 			$.ajax({
@@ -38,5 +94,21 @@
 			});
 		});
 
+		// login ajax
+		$('#login').on('click', function(){
+			var formdata = $("#login-form").serialize();
+			$.ajax({
+				type: 'post',
+				url: 'user_login',
+				data: formdata,
+				success: function(response){
+					if(response.code == 1){
+						alert(response.msg);
+					}else{
+						alert('Something wen wrong');
+					}		
+				}
+			});
+		});
 	});
 </script>
