@@ -27,7 +27,8 @@ def enrollment_from_submit(request):
 		create_user = Users(
 				user_name = request.POST['name'],
 				user_phone = request.POST['phone'],
-				user_email = request.POST['email']
+				user_email = request.POST['email'],
+				user_password = request.POST['password']
 			)
 		create_user.save()
 		response_data = {'code' : 1, 'status' : 'success', 'msg' : 'User created successfuly'}
