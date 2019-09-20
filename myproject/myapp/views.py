@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 import json
+import hashlib 
 from myapp.models import Users
 
 # Create your views here.
@@ -28,7 +29,7 @@ def enrollment_from_submit(request):
 				user_name = request.POST['name'],
 				user_phone = request.POST['phone'],
 				user_email = request.POST['email'],
-				user_password = request.POST['password']
+				user_password = hashlib.md5(request.POST['password'].encode())
 			)
 		create_user.save()
 		response_data = {'code' : 1, 'status' : 'success', 'msg' : 'User created successfuly'}
@@ -40,7 +41,21 @@ def users_list(request):
 	return HttpResponse(template.render({'users_list' : fetch_users}, request))
 	
 def user_login(request):
-	response_data = {'code' : 0, 'status' : 'fail', 'msg' : 'invalid credentials'}
+	response_data = {'code' : 0, 'status' : 'fail', 'msg' : request}
 	if request.POST.get('formname') == 'user_login':
-		response_data = {'code' : 1, 'status' : 'success', 'msg' : 'Valid crednetials'}
+		result = check_credentials(request.POST['user_email'], request.POST['user_password'])
+		response_data = {'code' : 1, 'status' : 'success', 'msg' : result}
 	return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+def check_credentials(email, password):
+	user_email = email
+	pwd = hashlib.md5(password.encode())
+	user_ob = Users.objects.filter(user_email=user_email,user_password=pwd)
+	if user_ob.exists():
+		return True
+	else:
+		return pwd
+		
+	for user_Data in user_ob:
+		print(user_Data, end="")
+	return json.dumps({'results': list({'user_email':user_email,'pwd':pwd})})
