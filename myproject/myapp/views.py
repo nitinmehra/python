@@ -26,12 +26,12 @@ def enrollment_page(request):
 def enrollment_from_submit(request):
 	response_data = {'code' : 0, 'status' : 'fail', 'msg' : 'not submitted'}
 	if request.POST.get('formname') == 'create_user':
-		password = hashlib.md5(request.POST['password'].encode())
+		password = hashlib.md5(request.POST['password'].encode()).hexdigest()
 		create_user = Users(
 				user_name = request.POST['name'],
 				user_phone = request.POST['phone'],
 				user_email = request.POST['email'],
-				user_password = password.hexdigest()
+				user_password = password
 			)
 		create_user.save()
 		response_data = {'code' : 1, 'status' : 'success', 'msg' : 'User created successfuly'}
