@@ -26,11 +26,12 @@ def enrollment_page(request):
 def enrollment_from_submit(request):
 	response_data = {'code' : 0, 'status' : 'fail', 'msg' : 'not submitted'}
 	if request.POST.get('formname') == 'create_user':
+		password = hashlib.md5(request.POST['password'].encode())
 		create_user = Users(
 				user_name = request.POST['name'],
 				user_phone = request.POST['phone'],
 				user_email = request.POST['email'],
-				user_password = hashlib.md5(request.POST['password'].encode())
+				user_password = password.hexdigest()
 			)
 		create_user.save()
 		response_data = {'code' : 1, 'status' : 'success', 'msg' : 'User created successfuly'}
@@ -44,19 +45,17 @@ def users_list(request):
 def user_login(request):
 	response_data = {'code' : 0, 'status' : 'fail', 'msg' : request}
 	if request.POST.get('formname') == 'user_login':
-		result = check_credentials(request.POST['user_email'], request.POST['user_password'])
+		user_email = request.POST['user_email']
+		password = hashlib.md5(request.POST['user_password'].encode()).hexdigest()
+		result = check_credentials(user_email, password)
 		response_data = {'code' : 1, 'status' : 'success', 'msg' : result}
 	return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 def check_credentials(email, password):
 	user_email = email
 	pwd = password
-	user_ob = Users.objects.filter(user_email=user_email,user_password=pwd)
+	user_ob = Users.objects.filter(user_email=user_email,user_password=pwd).values()
 	if user_ob.exists():
-		return True
+		return list(user_ob)
 	else:
 		return False
-		
-	for user_Data in user_ob:
-		print(user_Data, end="")
-	return json.dumps({'results': list({'user_email':user_email,'pwd':pwd})})
