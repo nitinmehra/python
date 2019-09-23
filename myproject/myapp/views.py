@@ -11,11 +11,12 @@ def index(request):
     template = loader.get_template('index.html')
     context = {'latest_question_list': 'latest_question_list'}
     return HttpResponse(template.render(context, request))
+	
 
 def about_us(request):
-	template = loader.get_template('about_us.html')
+	#template = loader.get_template('about_us.html')
 	context = {'latest_question_list': 'latest_question_list'}
-	return HttpResponse(template.render(context, request))
+	return render(request, "about_us.html", context)
 
 def enrollment_page(request):
 	template = loader.get_template('enrollment-form.html')
@@ -49,12 +50,12 @@ def user_login(request):
 
 def check_credentials(email, password):
 	user_email = email
-	pwd = hashlib.md5(password.encode())
+	pwd = password
 	user_ob = Users.objects.filter(user_email=user_email,user_password=pwd)
 	if user_ob.exists():
 		return True
 	else:
-		return pwd
+		return False
 		
 	for user_Data in user_ob:
 		print(user_Data, end="")
