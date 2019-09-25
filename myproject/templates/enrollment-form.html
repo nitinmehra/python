@@ -7,37 +7,38 @@
 	</div>
 	<div class="row">
 		<div class="col-sm-8">
-			<form action="" name="enrollment-form" id="enrollment-form" method="post">
+			<form name="enrollment-form" id="enrollment-form" method="post">
 				{% csrf_token %}
-				<input type="hidden" name="formname" value="create_user">
+				<!-- <input type="hidden" name="formname" value="create_user"> -->
 				<div class="row">
-					<div class="col-sm-4">
+					{{form.as_p}}
+					<!-- <div class="col-sm-4">
 						<div class="form-group">
 							<label for="name">Name</label>
-							<input type="text" name="name" id="name" value="" class="form-control">
+							<input type="text" name="name" id="name" value="" class="form-control" required>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-group">
 							<label for="email">Email</label>
-							<input type="email" name="email" id="email" value="" class="form-control">
+							<input type="email" name="email" id="email" value="" class="form-control" required>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-group">
 							<label for="phone">Phone</label>
-							<input type="number" name="phone" id="phone" value="" class="form-control">
+							<input type="number" name="phone" id="phone" value="" class="form-control" required>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-group">
 							<label for="password">Password</label>
-							<input type="password" name="password" id="password" value="" class="form-control">
+							<input type="password" name="password" id="password" value="" class="form-control" required>
 						</div>
-					</div>
+					</div> -->
 					<div class="col-sm-12">
 						<div class="form-group">
-							<input type="button" name="submit_button" id="submit_button" value="submit" class="btn btn-success btn-sm">
+							<input type="submit" name="submit_button" id="submit_buttons" value="submit" class="btn btn-success btn-sm">
 						</div>
 					</div>
 				</div>
