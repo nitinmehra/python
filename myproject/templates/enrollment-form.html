@@ -11,7 +11,47 @@
 				{% csrf_token %}
 				<!-- <input type="hidden" name="formname" value="create_user"> -->
 				<div class="row">
-					{{form.as_p}}
+					{{ form.non_field_errors }}
+					<!-- to all default form fields use this -->
+					<!-- {{form.as_p}} -->
+					<!-- to load form feilds according your way -->
+					<div class="col-sm-4">
+						<div class="form-group">
+							{{ form.user_name.errors }}
+							<label for="{{ form.user_name.id_for_label }}">Name:</label>
+							{{ form.user_name }}
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							{{ form.user_phone.errors }}
+							<label for="{{ form.user_phone.id_for_label }}">Phone:</label>
+							{{ form.user_phone }}
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							{{ form.user_email.errors }}
+							<label for="{{ form.user_email.id_for_label }}">Email:</label>
+							{{ form.user_email }}
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							{{ form.user_password.errors }}
+							<label for="{{ form.user_password.id_for_label }}">Password:</label>
+							{{ form.user_password }}
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							{{ form.user_address.errors }}
+							<label for="{{ form.user_address.id_for_label }}">Address:</label>
+							{{ form.user_address }}
+						</div>
+					</div>
+					
+					
 					<!-- <div class="col-sm-4">
 						<div class="form-group">
 							<label for="name">Name</label>
