@@ -7,6 +7,12 @@
 	</div>
 	<div class="row">
 		<div class="col-sm-8">
+			{% if request.session.user_name != ''%}
+				{{ request.session.user_name }}
+			{% endif %}
+			{% if request.session.user_id != ''%}
+				{{ request.session.user_id }}
+			{% endif %}
 			<form name="enrollment-form" id="enrollment-form" method="post">
 				{% csrf_token %}
 				<!-- <input type="hidden" name="formname" value="create_user"> -->
