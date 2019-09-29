@@ -56,7 +56,9 @@ def user_login(request):
 		if result == False:
 			response_data = {'code' : 1, 'status' : 'success', 'msg' : 'Invalid credentials'}
 		else:
-			response_data = {'code' : 1, 'status' : 'success', 'msg' : 'True'}
+			request.session['user_id'] = result[0]['id']
+			request.session['user_name'] = result[0]['user_name']
+			response_data = {'code' : 1, 'status' : 'success', 'msg' : 'True', 'data':result}
 			
 	return HttpResponse(json.dumps(response_data), content_type="application/json")
 
