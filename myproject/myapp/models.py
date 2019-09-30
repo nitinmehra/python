@@ -12,3 +12,6 @@ class Users(models.Model):
 
 	def check_email_exist(self):
 		return True
+
+	def as_dict(self):
+		return {"id":self.id, 'user_name':self.user_name,"user_phone":self.user_phone,"user_email":self.user_email,"user_password":self.user_password,"user_privelage":self.user_privelage}

@@ -56,8 +56,8 @@ def user_login(request):
 		if result == False:
 			response_data = {'code' : 1, 'status' : 'success', 'msg' : 'Invalid credentials'}
 		else:
-			request.session['user_id'] = result[0]['id']
-			request.session['user_name'] = result[0]['user_name']
+			request.session['user_id'] = result['id']
+			request.session['user_name'] = result['user_name']
 			response_data = {'code' : 1, 'status' : 'success', 'msg' : 'True', 'data':result}
 			
 	return HttpResponse(json.dumps(response_data), content_type="application/json")
@@ -65,8 +65,12 @@ def user_login(request):
 def check_credentials(email, password):
 	user_email = email
 	pwd = password
-	user_ob = Users.objects.filter(user_email=user_email,user_password=pwd).values()
-	if user_ob.exists():
-		return list(user_ob)
-	else:
-		return False
+	try:
+	    user_ob = Users.objects.filter(user_email=user_email,user_password=pwd).get().as_dict()
+	except ObjectDoesNotExist:
+		user_ob = False
+	except MultipleObjectsReturned:
+		user_ob = False
+	return user_ob
+
+	
