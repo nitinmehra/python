@@ -4,7 +4,7 @@ from django.template import loader
 import json
 import hashlib 
 from myapp.models import Users
-
+#from django.contrib.auth.decorators import check_user_not_login
 from .forms import EnromentForm
 
 # Create your views here.
@@ -17,6 +17,7 @@ def about_us(request):
 	context = {'latest_question_list': 'latest_question_list'}
 	return render(request, "about_us.html", context)
 
+#@check_user_not_login
 def user_enrollment(request):
 	# if this is a POST request we need to process the form data
 	print(request)
