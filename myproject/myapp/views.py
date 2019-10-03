@@ -6,6 +6,7 @@ import hashlib
 from myapp.models import Users
 #from django.contrib.auth.decorators import check_user_not_login
 from .forms import EnromentForm
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
 # Create your views here.
 
@@ -73,5 +74,10 @@ def check_credentials(email, password):
 	except MultipleObjectsReturned:
 		user_ob = False
 	return user_ob
+
+def logout(request):
+	del request.session['user_id']
+	del request.session['user_name']
+	return redirect('index')
 
 	
