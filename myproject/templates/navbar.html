@@ -38,10 +38,12 @@
 				  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 				</form>
 			</li>
-			{% if request.session.user_id == ''%}
-				<li class="nav-item"> <a class="nav-link" href="{% url 'user_enrollment' %}">Sign in/  Sign up</a></li>
+			{% if 'user_id' not in request.session %}
+				<li class="nav-item"> 
+					<a class="nav-link" href="{% url 'user_enrollment' %}">Sign in/  Sign up</a>
+				</li>
 			{% else %}
-				<li class="nav-item"> <a class="nav-link" href="">Logout</a></li>
+				<li class="nav-item"> <a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
 			{% endif %}
 		</ul>
 	</div>
