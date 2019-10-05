@@ -149,7 +149,8 @@
 				data: formdata,
 				success: function(response){
 					if(response.code == 1){
-						alert(response.msg);
+						alert('You have logged in successfuly');
+						window.location.href = "{% url 'index' %}"
 					}else{
 						alert('Something wen wrong');
 					}		
