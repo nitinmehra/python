@@ -1,0 +1,46 @@
+{% include 'header.html' %}
+{{user_details.id}}
+<div class="container">
+	<div class="row">
+		<div class="col-sm-8">
+			<form name="user_edit" id="user_edit" action="user_update" method="post">
+				{% csrf_token %}
+				<!-- <input type="hidden" name="formname" value="create_user"> -->
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="name">Name</label>
+							<input type="text" name="name" id="name" value="{{user_details.user_name}}" class="form-control" required>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="email">Email</label>
+							<input type="email" name="email" id="email" value="{{user_details.user_email}}" class="form-control" readonly="readonly" required>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="phone">Phone</label>
+							<input type="number" name="phone" id="phone" value="{{user_details.user_phone}}" class="form-control" required>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="address">Address</label>
+							<textarea name="address" id="address" value="" class="form-control">{{user_details.user_address}}</textarea>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="form-group">
+							<input type="submit" name="submit_button" id="submit_buttons" value="Update" class="btn btn-success btn-sm">
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+{% include 'footer.html' %}

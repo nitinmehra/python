@@ -4,7 +4,7 @@ from django.template import loader
 import json
 import hashlib 
 from myapp.models import Users
-from django.contrib.auth.decorators import check_user_not_login
+from .decorators import user_not_login
 from .forms import EnromentForm
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
@@ -18,10 +18,9 @@ def about_us(request):
 	context = {'latest_question_list': 'latest_question_list'}
 	return render(request, "about_us.html", context)
 
-@check_user_not_login
+@user_not_login
 def user_enrollment(request):
 	# if this is a POST request we need to process the form data
-	print(request)
 	if request.method == 'POST':
 		# create a form instance and populate it with data from the request:
 		form = EnromentForm(request.POST)
@@ -42,12 +41,6 @@ def user_enrollment(request):
 	else:
 		form = EnromentForm()
 		return render(request, "enrollment-form.html", {'form' : form})
-
-
-def users_list(request):
-	template = loader.get_template('users_list.html')
-	fetch_users = Users.objects.all()
-	return HttpResponse(template.render({'users_list' : fetch_users}, request))
 	
 def user_login(request):
 	response_data = {'code' : 0, 'status' : 'fail', 'msg' : request}
@@ -74,6 +67,26 @@ def check_credentials(email, password):
 	except MultipleObjectsReturned:
 		user_ob = False
 	return user_ob
+
+
+def users_list(request):
+	template = loader.get_template('users_list.html')
+	fetch_users = Users.objects.all()
+	return HttpResponse(template.render({'users_list' : fetch_users}, request))
+
+
+def user_edit(request, id):
+	user_details = Users.objects.get(id=id)  
+	return render(request,'user_edit.html', {'user_details':user_details})  
+
+"""def user_update(request, id):
+	user_details = Users.objects.get(id=id)  
+    form = EnromentForm(request.POST)  
+    if form.is_valid():  
+        form.save()  
+        return redirect("/user_list")  
+    return render(request, 'user_edit.html', {'user_details': user_details})   """
+
 
 def logout(request):
 	del request.session['user_id']
