@@ -10,5 +10,5 @@ urlpatterns = [
     path('user_login', views.user_login, name='user_login'),
     path('logout', views.logout, name='logout'),
     path('user_edit/<int:id>', views.user_edit, name='user_edit'),
-    #path('user_update/<int:id>', views.user_update, name='user_update'),
+    path('user_update/<int:id>', views.user_update, name='user_update'),
 ]

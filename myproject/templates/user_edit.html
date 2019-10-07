@@ -1,9 +1,8 @@
 {% include 'header.html' %}
-{{user_details.id}}
 <div class="container">
 	<div class="row">
 		<div class="col-sm-8">
-			<form name="user_edit" id="user_edit" action="user_update" method="post">
+			<form name="user_edit" id="user_edit" action="/user_update/{{user_details.id}}" method="post">
 				{% csrf_token %}
 				<!-- <input type="hidden" name="formname" value="create_user"> -->
 				<div class="row">
