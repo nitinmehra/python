@@ -13,11 +13,11 @@ def check_user_login(function):
             raise PermissionDenied
     return wrapper
 
-def check_user_not_login(view_func):
+def user_not_login(view_func):
     def wrapper(request, *args, **kwargs):
-        if request.session.user_id == '':
+        if 'user_id' not in request.session:
             return view_func(request, *args, **kwargs)
         else:
             #raise PermissionDenied
-            return render(request, "index")
+            return redirect('index')
     return wrapper
