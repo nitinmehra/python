@@ -4,7 +4,7 @@ from django.template import loader
 import json
 import hashlib 
 from myapp.models import Users
-from .decorators import user_not_login
+from .decorators import login_not_required, login_required
 from .forms import EnromentForm
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
@@ -18,7 +18,7 @@ def about_us(request):
 	context = {'latest_question_list': 'latest_question_list'}
 	return render(request, "about_us.html", context)
 
-@user_not_login
+@login_not_required
 def user_enrollment(request):
 	# if this is a POST request we need to process the form data
 	if request.method == 'POST':
@@ -68,7 +68,7 @@ def check_credentials(email, password):
 		user_ob = False
 	return user_ob
 
-
+@login_required
 def users_list(request):
 	template = loader.get_template('users_list.html')
 	fetch_users = Users.objects.all()
@@ -79,13 +79,11 @@ def user_edit(request, id):
 	user_details = Users.objects.get(id=id)  
 	return render(request,'user_edit.html', {'user_details':user_details})  
 
-"""def user_update(request, id):
-	user_details = Users.objects.get(id=id)  
-    form = EnromentForm(request.POST)  
-    if form.is_valid():  
-        form.save()  
-        return redirect("/user_list")  
-    return render(request, 'user_edit.html', {'user_details': user_details})   """
+def user_update(request, id):
+	if request.method == 'POST':
+		user_details = Users.objects.filter(id=id).update(user_name = request.POST['name'], user_phone = request.POST['phone'], user_email = request.POST['email'], user_address = request.POST['address'])
+		return redirect("/users_list")  
+	return render(request, 'user_edit.html', {'user_details': user_details})
 
 
 def logout(request):
