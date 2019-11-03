@@ -124,11 +124,11 @@
 	$(document).ready(function(event){
 		//event.preventDefault();
 		// enrollment form submit
-		$('#submit_button').on('click', function(){
+		/*$('#submit_button').on('click', function(){
 			var formdata = $("#enrollment-form").serialize();
 			$.ajax({
 				type: 'post',
-				url: 'enrollment_from_submit',
+				url: 'user_enrollment',
 				data: formdata,
 				success: function(response){
 					if(response.code == 1){
@@ -138,7 +138,7 @@
 					}		
 				}
 			});
-		});
+		});*/
 
 		// login ajax
 		$('#login').on('click', function(){
@@ -152,7 +152,7 @@
 						alert('You have logged in successfuly');
 						window.location.href = "{% url 'index' %}"
 					}else{
-						alert('Something wen wrong');
+						alert('Something went wrong');
 					}		
 				}
 			});
