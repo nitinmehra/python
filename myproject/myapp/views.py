@@ -49,7 +49,7 @@ def user_login(request):
 		password = hashlib.md5(request.POST['user_password'].encode()).hexdigest()
 		result = check_credentials(user_email, password)
 		if result == False:
-			response_data = {'code' : 1, 'status' : 'success', 'msg' : 'Invalid credentials'}
+			response_data = {'code' : 0, 'status' : 'fail', 'msg' : 'Invalid credentials'}
 		else:
 			request.session['user_id'] = result['id']
 			request.session['user_name'] = result['user_name']
@@ -68,7 +68,7 @@ def check_credentials(email, password):
 		user_ob = False
 	return user_ob
 
-@login_required
+#@login_required
 def users_list(request):
 	template = loader.get_template('users_list.html')
 	fetch_users = Users.objects.all()
